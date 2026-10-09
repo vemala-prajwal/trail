@@ -156,28 +156,47 @@ function App() {
 
   const renderHome = () => (
     <div className="page-stack home-page">
-      <section className="editorial-hero note-card">
-        <div className="rubric-line" aria-hidden="true" />
+      <section className="editorial-hero">
         <div className="hero-copy">
           <p className="eyebrow">Reviews by students, for students.</p>
           <h1>
-            Know your <span className="italic-squiggle">prof</span> before the first bell.
+            Know your <span className="italic-squiggle">prof<svg viewBox="0 0 180 18" aria-hidden="true"><path d="M3 12C37 5 66 15 91 10s53-5 86 1" /></svg></span> before the <span className="marker-swipe">first bell.</span>
           </h1>
-          <label className="fill-line" htmlFor="faculty-search">
-            <span>I want to know about</span>
-            <input
-              id="faculty-search"
-              type="text"
-              value={searchTerm}
-              onChange={(event) => {
-                setSearchTerm(event.target.value)
-                setPage('directory')
-              }}
-              placeholder="DBMS / Aisha / Operating Systems"
-            />
-          </label>
+          <div className="hero-search-wrap">
+            <label className="fill-line" htmlFor="faculty-search">
+              <span>I want to know about</span>
+              <input
+                id="faculty-search"
+                type="text"
+                value={searchTerm}
+                onChange={(event) => {
+                  setSearchTerm(event.target.value)
+                  setPage('directory')
+                }}
+                placeholder="DBMS / Aisha / Operating Systems"
+              />
+              <span className="search-arrow" aria-hidden="true">↗</span>
+            </label>
+            <span className="search-hint" aria-hidden="true">/</span>
+          </div>
+        </div>
+        <div className="hero-stickers" aria-hidden="true">
+          <div className="hero-score-sticker">{facultyData[0].overall.toFixed(1)}</div>
+          <div className="hero-stamp-sticker">{facultyData[0].tags[0]}</div>
+          <div className="hero-review-sticker">{facultyData[0].reviews[0].text}</div>
+          <svg className="hero-arrow-doodle" viewBox="0 0 120 75">
+            <path d="M7 57C38 58 47 17 99 20M88 9l13 11-14 9" />
+          </svg>
         </div>
       </section>
+
+      <div className="zine-marquee" aria-label="Departments and recent reviews">
+        <div className="marquee-track">
+          {[...allDepartments.slice(1), 'Recently annotated', 'Fresh notes', 'Table of contents', ...allDepartments.slice(1), 'Recently annotated', 'Fresh notes', 'Table of contents'].map((label, index) => (
+            <span key={`${label}-${index}`}>{label}<i aria-hidden="true" /></span>
+          ))}
+        </div>
+      </div>
 
       <section className="content-strip two-column">
         <div className="paper-panel">
@@ -509,9 +528,9 @@ function App() {
     <div className={`app-shell ${theme}`}>
       <header className="topbar">
         <div className="brand-block">
-          <span className="brand-mark">M</span>
+          <span className="brand-mark">P</span>
           <div>
-            <strong>Marginalia</strong>
+            <strong>PROFCHECK</strong>
             <small>Faculty notes</small>
           </div>
         </div>
@@ -525,7 +544,10 @@ function App() {
         </nav>
 
         <div className="header-actions">
-          <button type="button" className="theme-toggle" onClick={() => setTheme((value) => value === 'paper' ? 'ink' : 'paper')}>{theme === 'paper' ? 'Ink mode' : 'Paper mode'}</button>
+          <button type="button" className="theme-toggle" onClick={() => setTheme((value) => value === 'paper' ? 'ink' : 'paper')}>
+            <span className="theme-switch-icon" aria-hidden="true" />
+            <span>{theme === 'paper' ? 'Ink mode' : 'Paper mode'}</span>
+          </button>
         </div>
       </header>
 

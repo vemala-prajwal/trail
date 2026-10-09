@@ -1,0 +1,8 @@
+{
+  "name": "ProfCheck",
+  "short_name": "ProfCheck",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f1e7",
+  "theme_color": "#f6f1e7"
+}
